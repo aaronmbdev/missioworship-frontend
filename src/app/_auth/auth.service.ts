@@ -19,20 +19,17 @@ export class AuthService {
   constructor(private httpClient: HttpClient,
     @Inject(PLATFORM_ID) private platformId: any) { }
 
-  login(username: string, password: string): Observable<boolean> {
-    const url = environment.API_URL + ''; //me falta el Api | TODO
-
-    let data = {};  //me falta el Api | TODO
-    
-    return this.getAuthFromServer(url, data);
+  login(token: string): Observable<TokenResponse> {
+    const url = environment.API_URL + '/login';
+    return this.httpClient.post<TokenResponse>([
+      environment.API_URL,
+      'auth',
+      'login',
+    ].join('/'), token);
   }
 
   logout() {
     this.Auth = null;
-  }
-
-  private getAuthFromServer(url: string, data: any): Observable<boolean> {
-    return throwError(()=>'Not Implemented') //me falta el Api | TODO
   }
 
   //#region gets and sets
