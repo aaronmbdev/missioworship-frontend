@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles/root.scss';
+@import 'variables.scss';
+
+body{
+    margin: 0pt;
+    overflow: hidden;
+}
+
+// icons
+i[mat-btn]{
+    font-family: "Material Symbols Outlined";
+    font-style: inherit;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    line-height: .1em;
+    height: 1em;
+    -webkit-font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+}
+i[mat-btn]::before{
+    content: attr(mat-btn);
+    line-height: 1em;
+    display: inline-block;
+    height: 1em;
+    cursor: pointer;
+}
+
+.btnRack{
+    display: flex;
+    gap: .5em;
+    padding: .5em;
+    justify-content: center;
+}

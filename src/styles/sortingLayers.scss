@@ -1,0 +1,9 @@
+@import "../variables.scss";
+
+$i: length($sortingLayers);
+body{
+    @each $layer in $sortingLayers {
+        $i:$i - 1;
+        --sorting-layer-#{$layer}:#{$i*5};
+    }
+}
