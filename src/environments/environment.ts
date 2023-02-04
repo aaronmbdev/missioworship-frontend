@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  googleClientId:'726519609743-u96pjemnosno6qs9fal1loq30jk9dd8j.apps.googleusercontent.com',
   // API_URL: 'https://localhost:44382/api',
   // SERVER_ROOT: 'https://localhost:44382', 
   API_URL: 'http://http://192.168.1.97:8080/api',
