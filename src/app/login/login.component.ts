@@ -31,8 +31,14 @@ export class LoginComponent implements OnInit {
        res.isSkippedMoment();
     });
     this.onetap.oneTapCredentialResponse.subscribe(res => { 
-        //Llamar al backend para recibir token y almacenarlo en local Storage
-        console.log(res.credential);
+      console.log(res);
+        this.auth.sendToken(res.credential).subscribe({
+          next: data => {
+            console.log(data);
+          }, error: err =>{
+            console.log(err);
+          }
+        })
     });
   }
 

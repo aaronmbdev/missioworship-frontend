@@ -32,6 +32,12 @@ export class AuthService {
     this.Auth = null;
   }
 
+  //#region serverRequest
+  sendToken(token:string): Observable<string> {
+    return this.httpClient.post<string>(`${environment.API_URL}/login/filter`, token);
+  }
+  //#endregion
+
   //#region gets and sets
   get isLoggedIn():boolean{
     return localStorage.getItem(this.authKey) != null;
