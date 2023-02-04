@@ -16,17 +16,11 @@ export class LoginComponent implements OnInit {
     private onetap: NgOneTapService
     ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  logIn(sn:'google'){
-     switch(sn){
-      case 'google':this.loginGoogle();break;
-    } 
-  }
-  private loginGoogle(){
-    this.onetap.tapInitialize(); //Initialize OneTap, At intial time you can pass config  like this.onetap.tapInitialize(conif) here config is optional.
-    this.onetap.promtMoment.subscribe(res => {  // Subscribe the Tap Moment. following response options all have self explanatory. If you want more info pls refer official document below attached link.
+  logIn() {
+    this.onetap.tapInitialize(); 
+    this.onetap.promtMoment.subscribe(res => { 
        res.getDismissedReason(); 
        res.getMomentType();
        res.getNotDisplayedReason();
@@ -36,8 +30,9 @@ export class LoginComponent implements OnInit {
        res.isNotDisplayed();
        res.isSkippedMoment();
     });
-    this.onetap.oneTapCredentialResponse.subscribe(res => { // After continue with one tap JWT credentials response.
-        console.log(res);
+    this.onetap.oneTapCredentialResponse.subscribe(res => { 
+        //Llamar al backend para recibir token y almacenarlo en local Storage
+        console.log(res.credential);
     });
   }
 
