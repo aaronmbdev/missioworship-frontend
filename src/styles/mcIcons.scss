@@ -1,0 +1,10 @@
+$indexedMCIcons:
+    text
+;
+
+$i: length($indexedMCIcons);
+@each $layer in $sortingLayers {
+    i[mc-icon="#{$indexedMCIcons}"]{
+        background-image: url('../assets/svg/mcIcon/#{$indexedMCIcons}.svg');
+    }
+}

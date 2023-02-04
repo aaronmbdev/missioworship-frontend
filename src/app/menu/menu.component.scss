@@ -1,0 +1,64 @@
+.carousel{
+    width: 100%;
+    background-color: #faa;
+    min-height: 16em;
+    height: 40vh;
+    max-height: 24em;
+}
+.thisSunday{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1em;
+    justify-items: center;
+}
+.thisSunday>h1{
+    text-align: center;
+    grid-column: 1 / -1;
+    order: 1;
+    gap: 1em;
+    text-transform: uppercase;
+}
+.songList{
+    order: 3;
+}
+.generatedPic{
+    order: 2;
+}
+.generatedPic{
+    width: 18em;
+    height: 12em;
+    background-color: #aaf;
+    position: relative;
+    margin: 2em;
+}
+.generatedPic::before,
+.generatedPic::after{
+    display: block;
+    content: '';
+    position: absolute;
+    width: 4em; height: 3em;
+    border: solid .5em;
+}
+.generatedPic::before{
+    top: -1em; left: -1em;
+    border-color: #000 #0000 #0000 #000;
+}
+.generatedPic::after{
+    bottom: -1em; right: -1em;
+    border-color: #0000 #000 #000 #0000;
+}
+.songList dt{
+    font-weight: 500;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    padding-top: .5em;
+}
+.songList dd a{
+    padding: 0 .5em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-color-0);
+}
+.songList dd a+a{
+    border-left: solid 1px var(--text-color-0);
+}

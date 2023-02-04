@@ -29,9 +29,6 @@
     flex-direction: column;
     gap: .5em;
 }
-#topBar>ul.collapse:not(.show){
-    display: none;
-}
 #topBar>ul[collapse="true"]{
     display: none;
 }
@@ -75,6 +72,9 @@ $i: length($topbar-hide-sections);
     #topBarDark[section="#{$sect}"]{
         display: none;
     }
+}
+.content[role="main"]{
+    margin-top: var(--topbar-size);
 }
 
 @keyframes shadow-fade {

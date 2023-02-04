@@ -1,7 +1,7 @@
 <div id="topBar" [attr.section]="urlSection" (click)="notCloseToBar($event)">
   <i mat-btn="menu" (click)="toggleTopBar=!toggleTopBar"></i>
   <hr class="iconLogo">
-  <ul [(ngbCollapse)]="toggleTopBar">
+  <ul [attr.collapse]="toggleTopBar">
     <li>Inicio</li>
     <li>Ausencias</li>
     <li>Planning mensual</li>

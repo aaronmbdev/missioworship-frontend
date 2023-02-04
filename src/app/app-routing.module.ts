@@ -6,7 +6,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AuthGuard } from './_auth/auth.guard';
 
 const routes: Routes = [
-  { path: '',component: MenuComponent, canActivate: [AuthGuard]},
+  { path: '',component: MenuComponent},
   { path: 'login',component: LoginComponent},
   { path: 'Jonh317',component: AppInitComponent},
 ];

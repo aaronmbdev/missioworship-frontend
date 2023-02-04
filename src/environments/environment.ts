@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  API_URL: 'https://localhost:44382/api',
-  SERVER_ROOT: 'https://localhost:44382', 
+  // API_URL: 'https://localhost:44382/api',
+  // SERVER_ROOT: 'https://localhost:44382', 
+  API_URL: 'http://http://192.168.1.97:8080/api',
+  SERVER_ROOT: 'http://http://192.168.1.97:8080', 
 };
 /*
  * For easier debugging in development mode, you can import the following file
