@@ -1,5 +1,11 @@
 export interface TokenResponse {
-    loggedToken: string
+    email: string,
+    exp: number,
+    iat: number,
+    iss: string,
+    name: string,
+    profilePicUrl: string,
+    roles: string[]
   }
   export interface TokenGoogle {
     credential: string,

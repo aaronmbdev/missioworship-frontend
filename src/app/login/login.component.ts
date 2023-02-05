@@ -31,22 +31,17 @@ export class LoginComponent implements OnInit {
        res.isSkippedMoment();
     });
     this.onetap.oneTapCredentialResponse.subscribe(res => { 
-      console.log(res);
-        this.auth.sendToken(res.credential).subscribe({
-          next: data => {
-            console.log(data);
-          }, error: err =>{
-            console.log(err);
-          }
-        })
+      this.serverLogin(res.credential);
     });
   }
 
   private serverLogin(token:string){
-    this.auth.login(token).subscribe({
+    this.auth.sendToken(token).subscribe({
       next: data =>{
-        this.router.navigate(['/menu']);
+        this.router.navigate(['/']);
+        this.auth.saveToken(data);
       }, error: err =>{
+        console.log(err);
         switch(err.status){
           case 0: this.errorDisplay('Error al conectar con el servidor');break;
           case 400: this.errorDisplay('Error en el servidor. Error 400');break;
