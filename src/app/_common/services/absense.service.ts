@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AbsenseServiceService {
+export class AbsenseService {
 
   constructor(
     private httpClient: HttpClient,) { }

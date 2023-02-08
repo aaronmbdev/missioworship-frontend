@@ -10,5 +10,10 @@ body{
     --text-color-1: #{$text-color-1};
     --text-color-2: #{$text-color-2};
 
+    --btn-color-1: #{$btn-color-1};
+
+    --bg-color-0: #{$bg-color-0};
+    --bg-color-1: #{$bg-color-1};
+
     --topbar-size: #{$topbar-size + ($topbar-margin * 2)};
 }

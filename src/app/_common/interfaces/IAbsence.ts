@@ -3,7 +3,6 @@ export interface IAbsenceRequest{
     absenceDate?:string;
 }
 export interface IAbsenceFilterRequest{
-    title?:string;
-    subTitle?:string;
-    image: string;
+    startDate?: Date,
+    endDate?: Date
 }

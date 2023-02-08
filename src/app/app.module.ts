@@ -12,19 +12,23 @@ import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { NgGoogleOneTapModule } from 'ng-google-one-tap';
 import { AuthService } from './_auth/auth.service';
+import { AttendsComponent } from './attends/attends.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AppInitComponent,
-    MenuComponent
+    MenuComponent,
+    AttendsComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     RouterModule,
     AppRoutingModule,
+    FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
