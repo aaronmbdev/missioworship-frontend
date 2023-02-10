@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  API_URL: 'https://localhost:44382/api',
-  SERVER_ROOT: 'https://localhost:44382', 
+  googleClientId:'726519609743-u96pjemnosno6qs9fal1loq30jk9dd8j.apps.googleusercontent.com',
+  // API_URL: 'https://localhost:44382/api',
+  // SERVER_ROOT: 'https://localhost:44382', 
+  API_URL: 'http://192.168.1.97:8080/v1',
+  SERVER_ROOT: 'http://192.168.1.97:8080', 
 };
 /*
  * For easier debugging in development mode, you can import the following file

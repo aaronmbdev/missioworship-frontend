@@ -1,0 +1,21 @@
+@import '../variables.scss';
+
+
+body{
+    --main-color-1: #{$main-color-1};
+    --main-color-2: #{$main-color-2};
+    --main-color-3: #{$main-color-3};
+
+    --text-color-0: #{$text-color-0};
+    --text-color-1: #{$text-color-1};
+    --text-color-2: #{$text-color-2};
+    --text-color-4: #{$text-color-4};
+
+    --btn-color-1: #{$btn-color-1};
+
+    --bg-color-0: #{$bg-color-0};
+    --bg-color-1: #{$bg-color-1};
+    --bg-color-4: #{$bg-color-4};
+
+    --topbar-size: #{$topbar-size + ($topbar-margin * 2)};
+}

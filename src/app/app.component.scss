@@ -1,0 +1,91 @@
+@import '../variables.scss';
+
+#topBar{
+    display: grid;
+    grid-template-columns: var(--topbar-size) 1fr;
+    background-color: $topbar-bg-color;
+    color: $topbar-text-color;
+    padding: $topbar-margin;
+    gap: $topbar-margin;
+    transition: height 1s;
+    position: fixed;
+    top: 0; left: 0;
+    width: calc(100vw);
+    z-index: var(--sorting-layer-topbar);
+}
+
+#topBar>[mat-btn]{
+    font-size: $topbar-size;
+}
+#topBar>hr{
+    border: none;
+    width: 2em;
+    height: 2em;
+    background-color: white;
+    background-image: url('../assets/svg/logoMision.svg');
+    background-size: contain;
+    background-position: center center;
+    border-radius: 2em;
+    margin: 0 auto;
+}
+#topBar>ul{
+    list-style-type: none;
+    margin: 0;
+    padding: .2em;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+#topBar>ul[collapse="true"]{
+    display: none;
+}
+#topBar>ul>li{
+    text-transform: uppercase;
+    padding: 0pt 2em 0 .5em;
+    white-space: nowrap;
+    user-select: none;
+    font-size: 1.15em;
+    cursor: pointer;
+}
+#topBar>ul>hr{
+    width: 100%;
+    border-style: dashed;
+    grid-column: 1 / -1;
+}
+#topBar>ul>.btnRack{
+    grid-column: 1 / -1;
+    font-size: 2em;
+    padding: 0pt .25em .25em;
+    justify-content: flex-start;
+}
+
+#topBarDark{
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: var(--sorting-layer-topbar-shadow);
+    background-color: #0000;
+    transition: background-color 1s;
+}
+#topBarDark[dark]{
+    background-color: $topbar-shadow;
+}
+
+$i: length($topbar-hide-sections);
+@each $sect in $topbar-hide-sections {
+    #topBar[section="#{$sect}"],
+    #topBarDark[section="#{$sect}"]{
+        display: none;
+    }
+}
+.content[role="main"]{
+    margin-top: var(--topbar-size);
+}
+
+@keyframes shadow-fade {
+    from {background-color: #0000}
+    to {background-color: $topbar-shadow}
+}

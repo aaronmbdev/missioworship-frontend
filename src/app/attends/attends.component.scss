@@ -1,0 +1,153 @@
+.bigBanner{
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    background-size: cover;
+    background-position: center center;
+    text-transform: uppercase;
+    background-image: url('../../assets/img/banner_calendar.jpg');
+    background-color: #444;
+    background-blend-mode: multiply;
+}
+.ausenceArea{
+    display: flex;
+    width: 100%;
+    max-width: 80em;
+    margin: auto;
+}
+.chosen{
+    width: min(
+        calc(100vw - 1em),
+        max(60vh,50em)
+    );
+    overflow: hidden;
+    transition: width 1s;
+    border: var(--btn-color-1) .2em solid;
+    border-radius: .5em;
+    margin: .5em;
+}
+.chosen[num="-1"]{
+    width: 0pt;
+    border-width: 0pt;
+    margin: 0;
+}
+.chosen>h2{
+    color: var(--text-color-1);
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+}
+.triggers{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
+    gap: 1em;
+    margin: auto;
+    padding: 1em;
+}
+.triggers .days{
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    padding: 0;
+}
+.triggers .days>li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    cursor: pointer;
+    padding: .5em;
+    font-size: 1.6em;
+}
+.triggers .days>li:nth-child(4n),
+.triggers .days>li:nth-child(4n+1){ 
+    background-color: var(--bg-color-1);
+}
+.triggers .days>li{
+    background: linear-gradient(90deg,transparent,#aac,transparent);
+    animation: gradient 1s ease infinite;
+    background-size: 400% 400%;
+}
+.triggers .days>li[state]{
+    background-image:none;
+}
+.triggers .days>li[state=false]{
+    background-color:var(--bg-color-4);
+    color:var(--text-color-4);
+}
+.triggers .days::before,
+.triggers .days::after{
+    display: block;
+    content: '';
+    position: absolute;
+    width: 30%;
+    height: 1.2em;
+    border: solid .2em;
+}
+.triggers .days::before{
+    border-color: var(--bg-color-1) var(--bg-color-1) #0000 #0000;
+    top: 0; right: 0;
+}
+.triggers .days::after{
+    border-color: #0000 #0000 var(--bg-color-1) var(--bg-color-1);
+    bottom: 0; left: 0;
+}
+.triggers ol{
+    list-style-type: none;
+    padding: 0;
+}
+.triggers ol>li{
+    display: flex;
+}
+.triggers ol>li::before{
+    content: attr(num);
+    width: 2em;
+}
+.triggers ol>li>input{
+    flex-grow: 1;
+    width: 100%;
+    border: transparent;
+    margin-top: .4em;
+}
+
+.monthList{
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
+    list-style-type: none;
+    gap: .5em;
+    margin: 0;
+    padding: .5em;
+}
+.monthList>li{
+    display: flex;
+    border: var(--btn-color-1) .2em solid;
+    color: var(--btn-color-1);
+    border-radius: .5em;
+    font-size: 1.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    justify-content: center;
+    align-items: center;
+    height: max(7vh,1.9em);
+    cursor: pointer;
+}
+.monthList>li[hide="true"]{
+    color: var(--bg-color-0);
+    background-color: var(--btn-color-1);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 100%;
+    }
+}

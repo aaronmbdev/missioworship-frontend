@@ -1,0 +1,42 @@
+/* ╒════════════════════════════════════╕ */
+/* |         AJUSTES GENERALES          | */
+/* ╘════════════════════════════════════╛ */
+
+// Main Colors
+    $main-color-1: #000;
+    $main-color-2: #567;
+    $main-color-3: #000;
+
+// Colores de texto
+    $text-color-0: #000;
+    $text-color-1: #567;
+    $text-color-2: #fff;
+    $text-color-4: #a22;
+
+// Colores de botones
+    $btn-color-1: #43484e;
+
+// Colores de fondos
+    $bg-color-0: white;
+    $bg-color-1: #ccc;
+    $bg-color-4: #eaa;
+
+
+// Z-index sorting-layers order
+    $sortingLayers:
+        popup,
+        topbar,
+        topbar-shadow,
+        pops
+    ;
+
+// topbar
+    $topbar-bg-color: var(--main-color-1);
+    $topbar-text-color: var(--text-color-2);
+    $topbar-size: 1.5em;
+    $topbar-margin: .5em;
+    $topbar-shadow: #0005;
+
+    $topbar-hide-sections:
+        login
+    ;
