@@ -6,15 +6,18 @@
         <h2>{{chosen.name}}</h2>
         <div *ngIf="chosen.value" class="triggers">
             <ul class="days">
-                <li *ngFor="let day of chosen.value" [attr.state]="day.value">
+                <li *ngFor="let day of chosen.value; index as i"
+                    [attr.state]="day.value"
+                    (click)="clickedDay(i)">
                     {{day.id}}
                     <span class="material-symbols-outlined">
-                        {{day.value?'task_alt':'cancel'}}
+                        {{getDayIcon(day.value)}}
                     </span>
                 </li>
             </ul>
             <ol>
-                <li *ngFor="let day of chosen.value">
+                <li *ngFor="let day of chosen.value"
+                    [attr.num]="day.id">
                     <input type="text"
                         [(ngModel)]="day.name"
                         placeholder="AÑADIR COMENTARIO...">
@@ -25,7 +28,7 @@
     <ul class="monthList">
         <li *ngFor="let month of months; index as i"
             (click)="chosenNum = i"
+            [attr.hide]="i==chosenNum"
             >{{month.name}}</li>
-        <li>Fast data entry</li>
     </ul>
 </div>

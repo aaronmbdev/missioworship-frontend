@@ -19,6 +19,14 @@
 }
 #topBar>hr{
     border: none;
+    width: 2em;
+    height: 2em;
+    background-color: white;
+    background-image: url('../assets/svg/logoMision.svg');
+    background-size: contain;
+    background-position: center center;
+    border-radius: 2em;
+    margin: 0 auto;
 }
 #topBar>ul{
     list-style-type: none;

@@ -65,7 +65,7 @@ export class AttendsComponent implements OnInit {
   listMonths(){
     let m = (new Date()).getMonth();
     let d = (new Date()).getDay()+1;
-    for(let i = 0; i<5;i++){
+    for(let i = 0; i<6;i++){
       let ds:ISimple<boolean>[] = [];
       while(d<this._meses[m].days){
         ds.push({id:d+1,name:'',value:true});
@@ -82,6 +82,13 @@ export class AttendsComponent implements OnInit {
     }
     console.log(this.months)
   }
+  getDayIcon(val?:boolean){
+    switch(val){
+      case true: return 'task_alt';
+      case false: return 'cancel';
+      default: return 'sync';
+    }
+  }
 
   get chosen(){
     if(this.chosenNum<0)
@@ -89,4 +96,19 @@ export class AttendsComponent implements OnInit {
     return this.months[this.chosenNum];
   }
 
+  clickedDay(i:number){
+    let j = this.chosenNum;
+    if(this.months[j].value![i].value==undefined)return;
+    if(this.months[j].value![i].value){
+      this.months[j].value![i].value = undefined;
+      setTimeout(()=>{
+        this.months[j].value![i].value = false;
+      },1000);
+    } else {
+      this.months[j].value![i].value = undefined;
+      setTimeout(()=>{
+        this.months[j].value![i].value = true;
+      },1000);
+    }
+  }
 }

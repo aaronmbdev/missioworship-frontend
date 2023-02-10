@@ -24,6 +24,11 @@ export class AppComponent {
     event.stopPropagation();
   }
 
+  goTo(go:string){
+    this.router.navigateByUrl('/'+go);
+    this.toggleTopBar=true;
+  }
+
   //#region ToggleTopBar
   get toggleTopBar():boolean{
     return this._toggleTopBar<2;
