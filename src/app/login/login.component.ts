@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgOneTapService } from 'ng-google-one-tap';
 import { TokenResponse } from '../_auth/auth-dtos';
 import { AuthService } from '../_auth/auth.service';
-import {ToastrService} from "ngx-toastr";
+import { ngbAlert, ngbAlerts } from '../_common/prefab/ngbAlert';
 
 @Component({
   selector: 'app-login',
@@ -13,15 +13,23 @@ import {ToastrService} from "ngx-toastr";
 export class LoginComponent implements OnInit {
 
   logged: TokenResponse|null = null;
+  errorNotify = new ngbAlerts({
+    type:'danger',
+    selfClose:true
+  });
 
   constructor(
     private auth: AuthService,
     private router: Router,
-    private onetap: NgOneTapService,
-    private toastr: ToastrService
+    private onetap: NgOneTapService
     ) { }
 
   ngOnInit(): void {}
+
+  test(){
+    this.errorNotify.send('TEST');
+    console.log(this.errorNotify.alerts);
+  }
 
   logIn() {
     this.onetap.tapInitialize();
@@ -40,6 +48,7 @@ export class LoginComponent implements OnInit {
         next: data => {
           this.serverLogin(data.credential);
         }, error: err => {
+          this.errorNotify.send('Fallo al conectar con Google')
           console.log(err);
         }
       }
@@ -53,7 +62,7 @@ export class LoginComponent implements OnInit {
         this.auth.saveToken(data);
       }, error: err => {
         let error = JSON.parse(err.error);
-        this.toastr.error(error["problems"][0]);
+        this.errorNotify.send(error.problems[0]);
       }
     });
   }

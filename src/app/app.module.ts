@@ -15,7 +15,10 @@ import { AuthInterceptor } from './_auth/auth.interceptor';
 import { AttendsComponent } from './attends/attends.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap/collapse/collapse.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -33,7 +36,6 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
@@ -47,7 +49,8 @@ import { ToastrModule } from 'ngx-toastr';
       auto_select: false,
       disable_exponential_cooldowntime: false,
       context: 'signup'
-    })
+    }),
+    NgbModule
   ],
   providers: [
     HttpClient,

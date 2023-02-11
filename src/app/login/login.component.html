@@ -5,6 +5,15 @@
         <button (click)="logIn()">
             Iniciar con Google
         </button>
+        
+        <button (click)="test()">
+            test
+        </button>
+        <ngb-alert *ngFor="let a of errorNotify.alerts"
+            [type]="a.type"
+            (closed)="a.close">
+            {{ a.msg }}
+        </ngb-alert>
     </div>
 </div>
 
