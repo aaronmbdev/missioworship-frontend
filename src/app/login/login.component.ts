@@ -35,10 +35,15 @@ export class LoginComponent implements OnInit {
        res.isNotDisplayed();
        res.isSkippedMoment();
     });
-    this.onetap.oneTapCredentialResponse.subscribe(res => {
-      console.log(res);
-      this.serverLogin(res.credential);
-    });
+    this.onetap.oneTapCredentialResponse.subscribe(
+      {
+        next: data => {
+          this.serverLogin(data.credential);
+        }, error: err => {
+          console.log(err);
+        }
+      }
+    );
   }
 
   private serverLogin(token:string){

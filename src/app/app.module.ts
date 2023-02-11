@@ -11,7 +11,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { NgGoogleOneTapModule } from 'ng-google-one-tap';
-import { AuthService } from './_auth/auth.service';
+import { AuthInterceptor } from './_auth/auth.interceptor';
 import { AttendsComponent } from './attends/attends.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
