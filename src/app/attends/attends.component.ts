@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISimple } from '../_common/interfaces/ISimple';
 import { AbsenseService } from '../_common/services/absense.service';
-import { IAbsenceFilterRequest } from '../_common/interfaces/IAbsence';
+import { IAbsenceFilterRequest, IAbsenceRequest } from '../_common/interfaces/IAbsence';
 import { moment } from '../_common/managers/moment';
 import { addZero } from '../_common/managers/customFunc';
 
@@ -115,17 +115,20 @@ export class AttendsComponent implements OnInit {
     let j = this.chosenNum;
     if(this.months[j].value![i].value==undefined)return;
     let oldState = this.months[j].value![i].value;
-    if(this.months[j].value![i].value){
-      this.months[j].value![i].value = undefined;
-      setTimeout(()=>{
-        this.months[j].value![i].value = false;
-      },1000);
-    } else {
-      this.months[j].value![i].value = undefined;
-      setTimeout(()=>{
-        this.months[j].value![i].value = true;
-      },1000);
-    }
+    this.months[j].value![i].value = undefined;
+    let request:IAbsenceRequest = {
+      absenceDate:this.months[j].value![i].date
+    };
+    (oldState?
+      this.absenceService.attend(request):
+      this.absenceService.absent(request)
+    ).subscribe({
+      next: data => {
+        this.months[j].value![i].value = !oldState;
+      }, error: err => {
+        this.months[j].value![i].value = oldState;
+      }
+    });
   }
 
   /* clickedDay(i:number){

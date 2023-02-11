@@ -15,7 +15,7 @@
                     </span>
                 </li>
             </ul>
-            <ol>
+            <ol *ngIf="false">
                 <li *ngFor="let day of chosen.value"
                     [attr.num]="day.id">
                     <input type="text"
