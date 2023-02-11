@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
         this.auth.saveToken(data);
       }, error: err => {
-        console.log(err);
-        this.toastr.error(err.status);
+        let error = JSON.parse(err.error);
+        this.toastr.error(error["problems"][0]);
       }
     });
   }
