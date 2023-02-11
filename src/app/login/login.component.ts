@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgOneTapService } from 'ng-google-one-tap';
 import { TokenResponse } from '../_auth/auth-dtos';
 import { AuthService } from '../_auth/auth.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -16,15 +17,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private onetap: NgOneTapService
+    private onetap: NgOneTapService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {}
 
   logIn() {
-    this.onetap.tapInitialize(); 
-    this.onetap.promtMoment.subscribe(res => { 
-       res.getDismissedReason(); 
+    this.onetap.tapInitialize();
+    this.onetap.promtMoment.subscribe(res => {
+       res.getDismissedReason();
        res.getMomentType();
        res.getNotDisplayedReason();
        res.getSkippedReason();
@@ -33,28 +35,27 @@ export class LoginComponent implements OnInit {
        res.isNotDisplayed();
        res.isSkippedMoment();
     });
-    this.onetap.oneTapCredentialResponse.subscribe(res => { 
-      this.serverLogin(res.credential);
-    });
+    this.onetap.oneTapCredentialResponse.subscribe(
+      {
+        next: data => {
+          this.serverLogin(data.credential);
+        }, error: err => {
+          console.log(err);
+        }
+      }
+    );
   }
 
   private serverLogin(token:string){
     this.auth.sendToken(token).subscribe({
-      next: data =>{
+      next: data => {
         this.router.navigate(['/']);
         this.auth.saveToken(data);
-      }, error: err =>{
-        console.log(err);
-        switch(err.status){
-          case 0: this.errorDisplay('Error al conectar con el servidor');break;
-          case 400: this.errorDisplay('Error en el servidor. Error 400');break;
-          default: this.errorDisplay('Error desconocido. Error '+err.status);break;
-        }
+      }, error: err => {
+        let error = JSON.parse(err.error);
+        this.toastr.error(error["problems"][0]);
       }
     });
   }
 
-  errorDisplay(error:string){
-    console.log(error);
-  }
 }
