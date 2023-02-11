@@ -1,3 +1,13 @@
-<button (click)="logIn()">
-    Iniciar con Google
-</button>
+<div *ngIf="logged==null; else welcomeBox" class="loginBox">
+    <div class="bg"></div>
+    <div class="loginBox">
+        <h2>Login</h2>
+        <button (click)="logIn()">
+            Iniciar con Google
+        </button>
+    </div>
+</div>
+
+<ng-template #welcomeBox>
+    
+</ng-template>

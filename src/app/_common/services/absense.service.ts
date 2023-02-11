@@ -14,8 +14,10 @@ export class AbsenseService {
 
     API_SECTION = "absences";
 
-  filter(request:IAbsenceFilterRequest): Observable<Date[]> {
-    return this.httpClient.post<Date[]>(`${environment.API_URL}/${this.API_SECTION}/`, request);
+  filter(request:IAbsenceFilterRequest): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${environment.API_URL}/${this.API_SECTION}/`, {
+      params: request as any
+    });
   }
 
   attend(request:IAbsenceRequest): Observable<any> {
