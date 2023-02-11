@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ISimple } from '../_common/interfaces/ISimple';
 import { AbsenseService } from '../_common/services/absense.service';
 import { IAbsenceFilterRequest } from '../_common/interfaces/IAbsence';
+import { moment } from '../_common/managers/moment';
+import { addZero } from '../_common/managers/customFunc';
 
 @Component({
   selector: 'app-attends',
@@ -9,6 +11,8 @@ import { IAbsenceFilterRequest } from '../_common/interfaces/IAbsence';
   styleUrls: ['./attends.component.scss']
 })
 export class AttendsComponent implements OnInit {
+
+  monthNum:number = 6;
 
   _meses = [
     {name:'Enero', days:31},
@@ -27,24 +31,27 @@ export class AttendsComponent implements OnInit {
 
   chosenNum:number = -1;
 
-  months:ISimple<ISimple<boolean>[]>[] = [];
+  months:ISimple<IAbsenceItem[]>[] = [];
 
   constructor(
     private absenceService:AbsenseService
   ) { }
 
   ngOnInit(): void {
-    this.listMonths();
+    this.getMonths();
   }
 
 
   getMonths(){
     this.listMonths();
-    let filter:IAbsenceFilterRequest = {};
-    filter.startDate = new Date();
-    filter.startDate.setDate(0);
+    let start = moment().setDate(1)
+    let filter:IAbsenceFilterRequest = {
+      begin: start.format('yyyy-MM-dd'),
+      end: start.addMonths(this.monthNum).format('yyyy-MM-dd'),
+    };
     this.absenceService.filter(filter).subscribe({
       next: data =>{
+        console.log(data);
         data.forEach(day => {
           this.addAbsentDate(day);
         });
@@ -54,21 +61,30 @@ export class AttendsComponent implements OnInit {
     });
   }
 
-  addAbsentDate(date:Date){
-    let i = this.months.findIndex(m =>  date.getMonth() == m.id);
+  addAbsentDate(day:string){
+    let mo = parseInt(day.split('-')[1])-1;
+    let i = this.months.findIndex(m => mo == m.id);
     if(i<0) return;
-    let j = this.months[i].value!.findIndex(d => date.getDay() == d.id);
-    if(i>0)
-    this.months[i].value![j].value = false;
+    let j = this.months[i].value!.findIndex(d => day == d.date);
+    if(j>0)
+      this.months[i].value![j].value = false;
+    console.log(this.months[i].value![j]);
+    console.log(i,j);
+    console.log(this.months);
   }
 
   listMonths(){
-    let m = (new Date()).getMonth();
-    let d = (new Date()).getDay()+1;
-    for(let i = 0; i<6;i++){
-      let ds:ISimple<boolean>[] = [];
+    let dat = new Date();
+    dat.setDate(1);
+    let m = dat.getMonth();
+    let d = dat.getDay()+1;
+    let y = dat.getFullYear();
+    for(let i = 0; i<this.monthNum;i++){
+      let ds:IAbsenceItem[] = [];
       while(d<this._meses[m].days){
-        ds.push({id:d+1,name:'',value:true});
+        ds.push({id:d+1,name:'',value:true,
+        date: [y,addZero(m),addZero(d)].join('-')
+      });
         d+=7;
       }
       d-=this._meses[m].days;
@@ -95,8 +111,24 @@ export class AttendsComponent implements OnInit {
       return {id:0,name:''}
     return this.months[this.chosenNum];
   }
-
   clickedDay(i:number){
+    let j = this.chosenNum;
+    if(this.months[j].value![i].value==undefined)return;
+    let oldState = this.months[j].value![i].value;
+    if(this.months[j].value![i].value){
+      this.months[j].value![i].value = undefined;
+      setTimeout(()=>{
+        this.months[j].value![i].value = false;
+      },1000);
+    } else {
+      this.months[j].value![i].value = undefined;
+      setTimeout(()=>{
+        this.months[j].value![i].value = true;
+      },1000);
+    }
+  }
+
+  /* clickedDay(i:number){
     let j = this.chosenNum;
     if(this.months[j].value![i].value==undefined)return;
     if(this.months[j].value![i].value){
@@ -110,5 +142,13 @@ export class AttendsComponent implements OnInit {
         this.months[j].value![i].value = true;
       },1000);
     }
-  }
+  } */
+  
+}
+
+export interface IAbsenceItem{
+  id: number,
+  date: string,
+  name: string,
+  value?: boolean
 }

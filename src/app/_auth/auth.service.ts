@@ -62,6 +62,10 @@ export class AuthService {
     return localStorage.getItem(this.authKey) != null;
   }
 
+  get authToken():string|null{
+    return localStorage.getItem(this.authKey);
+  }
+
   get isAdmin(): boolean{
     return false //me falta el Api | TODO
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgOneTapService } from 'ng-google-one-tap';
+import { TokenResponse } from '../_auth/auth-dtos';
 import { AuthService } from '../_auth/auth.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { AuthService } from '../_auth/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  logged: TokenResponse|null = null;
 
   constructor(
     private auth: AuthService,

@@ -1,24 +1,46 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpHandler, HttpEvent, HttpInterceptor, HttpRequest, HttpResponse, HttpErrorResponse } from "@angular/common/http";
 import { Router } from '@angular/router';
-import { AuthService } from './../_auth/auth.service';
-import { Observable, from } from 'rxjs';
-import { throwError, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpErrorResponse
+} from '@angular/common/http';
 
-@Injectable()
+@Injectable({providedIn:'root'})
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private injector: Injector,
-        private router: Router,) { }
+  constructor(private injector: Injector,
+    private router: Router) {}
 
-   intercept(
-        request: HttpRequest<any>,
-        next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-        const auth = this.injector.get(AuthService);
+    //return next.handle(request);
 
-        return next.handle(request)
+    console.log('LLEGO');
+
+    const auth = this.injector.get(AuthService);
+
+     /*  let a = auth.isLoggedIn?{
+        setHeaders: {
+          autorization: auth.authToken!
+        }
+      }:{};
+        let req = request.clone(a); */
+
+        let req = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${auth.authToken}`
+            }
+        });
+
+        return next.handle(req)
             .pipe(catchError(err => {
                 if (err instanceof HttpErrorResponse) {
                     if (err.status === 401) {
@@ -31,9 +53,11 @@ export class AuthInterceptor implements HttpInterceptor {
                         console.log('change pass!', err.error);
                         this.router.navigate(['login']);
                     }
+
+
                 } 
                 return throwError(err);
             })
             );
-    }
+  }
 }
