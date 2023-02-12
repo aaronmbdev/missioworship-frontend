@@ -1,0 +1,61 @@
+name: Pack and ship (Release)
+
+on:
+  workflow_dispatch:
+  push:
+    branch: feat_cd
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js v14.21.1 and NPM 5.14.17
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.21.1
+          cache: 'npm'
+      - run: npm -g npm@6.14.17
+      - run: npm install
+
+    - name: Build Frontend
+      run: ng build
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: frontend
+        path: dist/
+
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+        contents: read
+        packages: write
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: frontend
+
+    - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: './dist'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_MISSIO_WORSHIP }}
+        timeout-minutes: 1
