@@ -2,8 +2,6 @@ name: Pack and ship (Release)
 
 on:
   workflow_dispatch:
-  push:
-    branch: feat_cd
   release:
     types: [created]
 
