@@ -7,15 +7,15 @@
         <div *ngIf="chosen.value" class="triggers">
             <ul class="days">
                 <li *ngFor="let day of chosen.value; index as i"
-                    [attr.state]="day.value"
+                    [attr.state]="getDayStatus(day)"
                     (click)="clickedDay(i)">
                     {{day.id}}
                     <span class="material-symbols-outlined">
-                        {{getDayIcon(day.value)}}
+                        {{getDayIcon(day)}}
                     </span>
                 </li>
             </ul>
-            <ol>
+            <ol *ngIf="false">
                 <li *ngFor="let day of chosen.value"
                     [attr.num]="day.id">
                     <input type="text"
@@ -23,6 +23,15 @@
                         placeholder="AÑADIR COMENTARIO...">
                 </li>
             </ol>
+            <div class="legend">
+                <span>
+                    Los dias que se muestran con
+                    <span class="material-symbols-outlined">task_alt</span>
+                    , son dias que se confirma asistencia. <br> Se deben marcar los días que NO se puede asistir.<br><br>
+                    <i>Por favor, si se cambia la asistencia con menos de dos días de antelación, avisar por WhatsApp.</i>
+
+                </span>
+            </div>
         </div>
     </div>
     <ul class="monthList">

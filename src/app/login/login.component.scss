@@ -1,0 +1,84 @@
+h2{
+    text-transform: uppercase;
+    font-size: 4em;
+    font-weight: 800;
+    margin: 0;
+}
+.loginBg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 
+        min(calc(100vw - 1em),
+         max(50em, 50vw)) 1fr;
+    grid-template-rows: 1fr auto 1fr;
+    background-color: #777;
+}
+.loginBg>.bg{
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+}
+
+.loginBox{
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff7;
+    box-shadow: 0 0 2em #0006;
+    border-radius: 1em;
+    padding: 2em;
+    gap: 1em;
+}
+.loginBox .btnRack{
+    display: grid;
+}
+
+.loginBox .btnRack>*{
+    display: grid;
+    grid-template-columns: 1.1em 1fr;
+    gap: 1.8em;
+    padding: .2em 1.8em .2em 1em;
+    font-size: 1.2em;
+    border: solid .2em var(--color);
+    user-select: none;
+    color: white;
+    font-weight: 500;
+    --color: var(--main-color-1);
+    background-color: var(--color);
+    border-radius: .3em;
+    cursor: pointer;
+}
+.loginBox .btnRack>*:active{
+    color: var(--color);
+    background-color: white;
+    font-weight: 500;
+}
+.loginBox .btnRack>*:active::before{
+    filter: invert(.5);
+}
+.loginBox .btnRack>*::before{
+    content: '';
+    display: block;
+    width: 1.1em;
+    height: 1.1em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.loginBox .btnRack>*[google]{
+    --color:#b32;
+}
+.loginBox .btnRack>*[google]::before{
+    background-image: url('../../assets/svg/googleIcon.svg');
+}
+.errorMsg{
+    height: 4em;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}

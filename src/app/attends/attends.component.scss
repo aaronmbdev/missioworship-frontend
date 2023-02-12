@@ -44,7 +44,7 @@
 }
 .triggers{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
+    //grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
     gap: 1em;
     margin: auto;
     padding: 1em;
@@ -89,6 +89,7 @@
     width: 30%;
     height: 1.2em;
     border: solid .2em;
+    pointer-events:none;
 }
 .triggers .days::before{
     border-color: var(--bg-color-1) var(--bg-color-1) #0000 #0000;

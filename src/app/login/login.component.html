@@ -1,10 +1,23 @@
-<div *ngIf="logged==null; else welcomeBox" class="loginBox">
+<div *ngIf="logged==null; else welcomeBox" class="loginBg">
     <div class="bg"></div>
     <div class="loginBox">
-        <h2>Login</h2>
-        <button (click)="logIn()">
-            Iniciar con Google
-        </button>
+        <h2>Log in</h2>
+        <div class="btnRack">
+            <button (click)="logIn()" google>
+                Iniciar con Google
+            </button>
+            
+            <!-- <button (click)="test()">
+                test
+            </button> -->
+        </div>
+        <div class="errorMsg">
+            <ngb-alert *ngFor="let a of errorNotify.alerts"
+                [type]="a.type"
+                (closed)="a.close">
+                {{ a.msg }}
+            </ngb-alert>
+        </div>
     </div>
 </div>
 

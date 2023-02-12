@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISimple } from '../_common/interfaces/ISimple';
 import { AbsenseService } from '../_common/services/absense.service';
-import { IAbsenceFilterRequest } from '../_common/interfaces/IAbsence';
+import { IAbsenceFilterRequest, IAbsenceRequest } from '../_common/interfaces/IAbsence';
 import { moment } from '../_common/managers/moment';
 import { addZero } from '../_common/managers/customFunc';
 
@@ -13,6 +13,7 @@ import { addZero } from '../_common/managers/customFunc';
 export class AttendsComponent implements OnInit {
 
   monthNum:number = 6;
+  loaded:boolean = false;
 
   _meses = [
     {name:'Enero', days:31},
@@ -55,8 +56,9 @@ export class AttendsComponent implements OnInit {
         data.forEach(day => {
           this.addAbsentDate(day);
         });
+        this.loaded = true;
       }, error: err =>{
-
+        this.loaded = true;
       }
     });
   }
@@ -65,8 +67,8 @@ export class AttendsComponent implements OnInit {
     let mo = parseInt(day.split('-')[1])-1;
     let i = this.months.findIndex(m => mo == m.id);
     if(i<0) return;
-    let j = this.months[i].value!.findIndex(d => day == d.date);
-    if(j>0)
+      let j = this.months[i].value!.findIndex(d => day == d.date);
+    if(j>-1)
       this.months[i].value![j].value = false;
     console.log(this.months[i].value![j]);
     console.log(i,j);
@@ -83,7 +85,7 @@ export class AttendsComponent implements OnInit {
       let ds:IAbsenceItem[] = [];
       while(d<this._meses[m].days){
         ds.push({id:d+1,name:'',value:true,
-        date: [y,addZero(m),addZero(d)].join('-')
+        date: [y,addZero(m+1),addZero(d+1)].join('-')
       });
         d+=7;
       }
@@ -98,8 +100,12 @@ export class AttendsComponent implements OnInit {
     }
     console.log(this.months)
   }
-  getDayIcon(val?:boolean){
-    switch(val){
+  getDayStatus(day:IAbsenceItem):boolean|undefined{
+    return this.loaded?day.value:undefined;
+  }
+  getDayIcon(day:IAbsenceItem):string{
+    if(!this.loaded)return 'sync';
+    switch(day.value){
       case true: return 'task_alt';
       case false: return 'cancel';
       default: return 'sync';
@@ -112,20 +118,24 @@ export class AttendsComponent implements OnInit {
     return this.months[this.chosenNum];
   }
   clickedDay(i:number){
+    if(!this.loaded) return;
     let j = this.chosenNum;
     if(this.months[j].value![i].value==undefined)return;
     let oldState = this.months[j].value![i].value;
-    if(this.months[j].value![i].value){
-      this.months[j].value![i].value = undefined;
-      setTimeout(()=>{
-        this.months[j].value![i].value = false;
-      },1000);
-    } else {
-      this.months[j].value![i].value = undefined;
-      setTimeout(()=>{
-        this.months[j].value![i].value = true;
-      },1000);
-    }
+    this.months[j].value![i].value = undefined;
+    let request:IAbsenceRequest = {
+      absenceDate:this.months[j].value![i].date
+    };
+    (oldState?
+      this.absenceService.absent(request):
+      this.absenceService.attend(request)
+    ).subscribe({
+      next: data => {
+        this.months[j].value![i].value = !oldState;
+      }, error: err => {
+        this.months[j].value![i].value = oldState;
+      }
+    });
   }
 
   /* clickedDay(i:number){

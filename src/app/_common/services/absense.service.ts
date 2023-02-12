@@ -21,10 +21,10 @@ export class AbsenseService {
   }
 
   attend(request:IAbsenceRequest): Observable<any> {
-    return this.httpClient.post<any>(`${environment.API_URL}/${this.API_SECTION}/attendeing`, request);
+    return this.httpClient.post<any>(`${environment.API_URL}/${this.API_SECTION}/attending`, request);
   }
 
   absent(request:IAbsenceRequest): Observable<any> {
-    return this.httpClient.post<any>(`${environment.API_URL}/${this.API_SECTION}/absences`, request);
+    return this.httpClient.post<any>(`${environment.API_URL}/${this.API_SECTION}/absent`, request);
   }
 }
