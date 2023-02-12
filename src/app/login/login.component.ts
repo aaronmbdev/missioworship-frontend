@@ -4,6 +4,7 @@ import { NgOneTapService } from 'ng-google-one-tap';
 import { TokenResponse } from '../_auth/auth-dtos';
 import { AuthService } from '../_auth/auth.service';
 import { ngbAlert, ngbAlerts } from '../_common/prefab/ngbAlert';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -60,7 +61,11 @@ export class LoginComponent implements OnInit {
       next: data => {
         this.router.navigate(['/']);
         this.auth.saveToken(data);
-      }, error: err => {
+      }, error: (err:HttpErrorResponse) => {
+        if(err.status == 0){
+          this.errorNotify.send('Fallo al conectar con el servidor');
+          return;
+        }
         let error = JSON.parse(err.error);
         this.errorNotify.send(error.problems[0]);
       }
