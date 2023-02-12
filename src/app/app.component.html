@@ -1,11 +1,13 @@
 <div id="topBar" [attr.section]="urlSection" (click)="notCloseToBar($event)">
   <i mat-btn="menu" (click)="toggleTopBar=!toggleTopBar"></i>
   <hr class="iconLogo">
-  <ul [attr.collapse]="toggleTopBar">
+  <ul [(ngbCollapse)]="toggleTopBar">
     <li (click)="goTo('')">Inicio</li>
     <li (click)="goTo('attends')">Ausencias</li>
     <li>Planning mensual</li>
     <li>Listado de canciones</li>
+    <hr>
+    <li>Usuarios</li>
     <hr>
     <div class="btnRack">
       <i mat-btn="download"></i>

@@ -19,6 +19,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap/alert/alert.module';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap/collapse/collapse.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UsersComponent } from './admin/users/users.component';
+import { UserRolesComponent } from './admin/users/user-roles/user-roles.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     AppInitComponent,
     MenuComponent,
-    AttendsComponent
+    AttendsComponent,
+    UsersComponent,
+    UserRolesComponent
   ],
   imports: [
     HttpClientModule,

@@ -37,7 +37,7 @@
     flex-direction: column;
     gap: .5em;
 }
-#topBar>ul[collapse="true"]{
+#topBar>ul.collapse:not(.show){
     display: none;
 }
 #topBar>ul>li{
