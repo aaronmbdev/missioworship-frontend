@@ -22,7 +22,7 @@ jobs:
       with:
         node-version: 14.21.1
         cache: 'npm'
-    - run: npm -g npm@6.14.17
+    - run: npm install -g npm@6.14.17
     - run: npm install
 
     - name: Build Frontend
