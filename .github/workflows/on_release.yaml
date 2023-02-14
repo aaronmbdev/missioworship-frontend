@@ -24,14 +24,11 @@ jobs:
     - name: Install Npm 6.14.17
       run: npm install -g npm@6.14.17
 
-    - name: Install Angular CLI
-      run: npm install -g @angular/cli@14.2.10
-
     - name: Install dependencies 
       run: npm install
 
     - name: Build Frontend
-      run: ng build
+      run: npm run build --prod
 
     - uses: actions/upload-artifact@v3
       with:
